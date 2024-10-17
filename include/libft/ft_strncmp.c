@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theveste <theveste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 16:07:52 by theveste          #+#    #+#             */
-/*   Updated: 2023/11/15 12:58:11 by theveste         ###   ########.fr       */
+/*   Created: 2024/10/17 15:26:32 by daeunki2          #+#    #+#             */
+/*   Updated: 2024/10/17 15:26:40 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
-#include <stdio.h>
 
 int	ft_strncmp( const char *first, const char *second, size_t length )
 {

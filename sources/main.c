@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:51:50 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/10/14 14:42:07 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:31:10 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int main(int argc, char **argv)
     printf("time to die is... %d\n", input.t_die);
     printf("time to eat is... %d\n", input.t_eat); 
     printf("time to sleep is... %d\n", input.t_sleep);
+    printf("must eat is... %d\n", input.m_count);
     return (0);
 }

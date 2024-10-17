@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 02:30:51 by theveste          #+#    #+#             */
-/*   Updated: 2024/08/07 15:45:06 by daeunki2         ###   ########.fr       */
+/*   Created: 2024/10/17 15:23:15 by daeunki2          #+#    #+#             */
+/*   Updated: 2024/10/17 15:28:24 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <string.h>
 
 // PRINTF STRUCTURE
 typedef struct s_flags
