@@ -6,26 +6,46 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:51:50 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/10/17 15:31:10 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:02 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+/*
+step :
+parsing -- did !
+intialize value from input -- did !
+intialize value for the program
+initalize mutexes , very important
+run program
+finish
+*/
 
-int main(int argc, char **argv)
+/*
+look about threads ,
+look mutexes
+
+create a thread, 
+pthread_create -> give a function to execute, all the thread will execute the same function !
+
+the loop will be 
+-eating
+sleeping
+thinking
+
+(little problem you can encounter is :
+if there is 4 philo 2 of them will eat at the same time 
+and 2 waiting)
+*/
+
+int	main(int argc, char **argv)
 {
-    t_table input;
-
-    if (parse_arguments(argc, argv, &input) != 0)
-        return (1);
-    printf("YOUR INPUT\n");
-    printf("num of philo is... %d\n", input.n_philo);
-    printf("time to die is... %d\n", input.t_die);
-    printf("time to eat is... %d\n", input.t_eat); 
-    printf("time to sleep is... %d\n", input.t_sleep);
-    printf("must eat is... %d\n", input.m_count);
-    return (0);
+	if ((argc != 5 && argc != 6) || (ft_vaild_argv(argv) != 0))
+	{
+		input_error();
+		return (1);
+	}
+	return (0);
 }
+

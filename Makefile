@@ -6,7 +6,7 @@
 #    By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/30 15:12:53 by daeunki2          #+#    #+#              #
-#    Updated: 2024/10/14 14:02:23 by daeunki2         ###   ########.fr        #
+#    Updated: 2024/10/28 17:34:07 by daeunki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,58 +37,54 @@ RESET = \033[0m
 NAME = philo
 CC = gcc
 
-# Adding libft directory
-LIBFT_DIR = ./include/libft
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
-
 # Adding builtins directory path
 BUILTINS_DIRECTORY = builtins/
 SRCS_DIRECTORY = ./sources/
 OBJ_DIR = ./obj/
 
 SRCS = 	$(SRCS_DIRECTORY)main.c \
-		$(SRCS_DIRECTORY)parsing.c \
-		
+		# $(SRCS_DIRECTORY)parsing.c \
+		# $(SRCS_DIRECTORY)printer.c \
+		# $(SRCS_DIRECTORY)utils.c \
+#		$(SRCS_DIRECTORY)init.c \
+#		$(SRCS_DIRECTORY)
+#		$(SRCS_DIRECTORY)
+
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR)
-LIBS = -lreadline
+# CFLAGS = -Wall -Wextra -Werror -lpthread -pedantic
+CFLAGS = -lpthread -pedantic
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ) $(LIBFT_LIB)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT_LIB) $(LIBS)
-	@echo "$(BOLD_GREEN)philo is ready!$(RESET)"
-	@echo "$(BOLD_GREEN)-------------------$(RESET)"
-	@echo "$(BOLD_GREEN)For usage : $(RED)./philo$(RESET) $(RESET)"
-
-$(LIBFT_LIB):
-	@make -C $(LIBFT_DIR) -s
-
+$(NAME): $(OBJ) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)  $(LIBS)
+	@echo "$(BOLD_CYAN)               philo is ready!$(RESET)"
+	@echo "$(BOLD_GREEN)*-----------------------------------------*$(RESET)"
+	@echo "$(BOLD_GREEN)|For usage : $(BOLD_RED)./philo num num num num (num)$(BOLD_GREEN)| $(RESET) $(RESET) $(RESET)"
+	@echo "$(BOLD_GREEN)*-----------------------------------------*$(RESET)"
+	
 all: $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@make -C $(LIBFT_DIR) clean -s
-	@echo "$(BOLD_YELLOW)Cleaning libft object file..$(RESET)"
-	@echo "$(BOLD_YELLOW)Cleaning philo object file..$(RESET)"
+	@echo "$(BOLD_RED)Cleaning philo object files..$(RESET)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@make -C $(LIBFT_DIR) fclean -s
-	@echo "$(BOLD_RED)Cleaning philo exec file..$(RESET)"
-	@echo "$(BOLD_GREEN)Everything is cleaned !$(RESET)"
+	@echo "$(BOLD_RED)Cleaning philo exec files..$(RESET)"
+	@echo "$(BOLD_GREEN)Everything is cleaned!!$(RESET)"
 	
 re: fclean all
 
 norm:
-	@echo "$(BLUE)Checking norminette for C files...$(RESET)"
+	@echo "$(BOLD_BLUE)Checking norminette for C files...$(RESET)"
 	@norminette $(SRCS) \
 	|| { echo "$(RED)Norminette failed :( $(RESET)"; exit 1; }
 	@echo "$(BLUE)Checking norminette for Include...$(RESET)"
-	@norminette ./include/philo.h || { echo "$(RED)Norminette failed for header$(RESET)"; exit 1; }
-	@echo "$(GREEN)Norm is all good!$(RESET)"
+	@norminette ./include/philo.h || { echo "$(BOLD_RED)Norminette failed for header$(RESET)"; exit 1; }
+	@echo "$(BOLD_GREEN)Norm is all good!$(RESET)"
 
 .PHONY: all clean fclean re norm

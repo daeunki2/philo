@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 15:21:14 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/10/17 15:21:16 by daeunki2         ###   ########.fr       */
+/*   Created: 2024/10/24 12:07:01 by daeunki2          #+#    #+#             */
+/*   Updated: 2024/10/28 17:14:34 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/philo.h"
 
-int	ft_isdigit(int character)
+int	ft_simple_atoi(char *str)
 {
-	if (character >= '0' && character <= '9')
-		return (2);
-	return (0);
+	int	result;
+	int	i;
+
+	result = 0;
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result);
 }
 
-/*
-int main()
+int		ft_strlen(char *str)
 {
-	printf("%d\n", ft_isdigit('Z'));
-	printf("%d\n", ft_isdigit('\\'));
-	printf("%d\n", ft_isdigit('8'));
+	int	i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		i++;
+	}
+	return(0);
 }
-*/

@@ -6,15 +6,18 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:07:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/10/17 15:29:55 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:31:28 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-# include "libft/libft.h"
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_philosopher
 {
@@ -36,6 +39,13 @@ typedef struct s_table
 	t_philosopher	*philosophers;
 }					t_table;
 
+/*parsing.c*/
 int					parse_arguments(int argc, char **argv, t_table *table);
 int					ft_simple_atoi(char *str);
+int					ft_vaild_argv(char **argv);
+/*printer.c*/
+void				input_error(void);
+/*init.c*/
+/*utils.c*/
+
 #endif
