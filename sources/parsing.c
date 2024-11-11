@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/10/24 12:35:55 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:48:15 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	parse_arguments(int argc, char **argv, t_table *table)
 	if (argc == 6)
 		table->m_count = ft_simple_atoi(argv[5]);
 	else
-		table->m_count = -1;
+		table->m_count = -1;//as a flag
 	if (table->n_philo <= 0 || table->t_die <= 0 || table->t_eat <= 0
 		|| table->t_sleep <= 0 || (argc == 6 && table->m_count <= 0))
 	{

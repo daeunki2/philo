@@ -6,7 +6,7 @@
 #    By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/30 15:12:53 by daeunki2          #+#    #+#              #
-#    Updated: 2024/10/28 17:34:07 by daeunki2         ###   ########.fr        #
+#    Updated: 2024/11/11 22:28:08 by daeunki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,16 +43,16 @@ SRCS_DIRECTORY = ./sources/
 OBJ_DIR = ./obj/
 
 SRCS = 	$(SRCS_DIRECTORY)main.c \
-		# $(SRCS_DIRECTORY)parsing.c \
-		# $(SRCS_DIRECTORY)printer.c \
-		# $(SRCS_DIRECTORY)utils.c \
-#		$(SRCS_DIRECTORY)init.c \
-#		$(SRCS_DIRECTORY)
+		$(SRCS_DIRECTORY)parsing.c \
+		$(SRCS_DIRECTORY)printer.c \
+		$(SRCS_DIRECTORY)utils.c \
+		$(SRCS_DIRECTORY)init.c \
+		$(SRCS_DIRECTORY)routin.c \
 #		$(SRCS_DIRECTORY)
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 # CFLAGS = -Wall -Wextra -Werror -lpthread -pedantic
-CFLAGS = -lpthread -pedantic
+# CFLAGS = -lpthread -pedantic
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
