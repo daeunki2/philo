@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:51:50 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/11/11 23:48:59 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:04:38 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char** argv)
 		printf("변환오류\n");
 		return(1);
 	}
-	if (init_fork(&table, philo) != 0 || init_philo(&table, philo) != 0)
+	if (init_fork(&table) != 0 || init_philo(&table, &philo) != 0)
 		return(-1);
 	create_threads(philo, &table);
 

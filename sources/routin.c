@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:40:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/11/11 23:57:25 by daeunki2         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:35:59 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void    *start_routine(void *data)
 //    int right;
 
 	philos = (t_philo *)data;
-    int left = (philos->idx - 1) % philos->table->n_philo;
-    int right = philos->idx % philos->table->n_philo;
+    int right = (philos->idx - 1);
+    int left = philos->idx % philos->table->n_philo;
  //   right = (philos->idx - 1);
  //   left = (philos->idx % philos->table->n_philo);
 
-    printf("philo idx = %d \nleft = %d\nright%d\n", philos->idx, left, right);    
+    printf("philo idx = %d \nleft = %d\nright=%d\n\n", philos->idx, left, right);    
 	return (NULL);
 }
 
