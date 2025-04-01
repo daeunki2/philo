@@ -6,7 +6,7 @@
 #    By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/30 15:12:53 by daeunki2          #+#    #+#              #
-#    Updated: 2024/11/11 22:28:08 by daeunki2         ###   ########.fr        #
+#    Updated: 2025/04/01 17:56:01 by daeunki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,12 @@ SRCS_DIRECTORY = ./sources/
 OBJ_DIR = ./obj/
 
 SRCS = 	$(SRCS_DIRECTORY)main.c \
+		$(SRCS_DIRECTORY)clean_table.c \
+		$(SRCS_DIRECTORY)init_table.c \
 		$(SRCS_DIRECTORY)parsing.c \
 		$(SRCS_DIRECTORY)printer.c \
 		$(SRCS_DIRECTORY)utils.c \
-		$(SRCS_DIRECTORY)init.c \
-		$(SRCS_DIRECTORY)routin.c \
+#		$(SRCS_DIRECTORY)routin.c \
 #		$(SRCS_DIRECTORY)
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))

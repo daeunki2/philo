@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:07:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/11/11 23:52:31 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:55:33 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,55 @@
 # define PHILO_H
 # include <pthread.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef enum e_status
-{
-    EATING,
-    SLEEPING,
-    THINKING,
-    FULL,
-    DIE
-} t_status;
-
 typedef struct s_philo
-{   
-    int             state;
-    int             idx;
-    int             eat_count;
-    int             deja_eat;
-    pthread_t       id;
-    struct s_table  *table;
-    t_status        status;
-} t_philo;
+{
+    int             id;
+    pthread_t       thread;
+    int             left_fork;
+    int             right_fork;
+    long long       last_meal;
+    int             meal_count;
+    pthread_mutex_t last_meal_mutex;
+    struct s_table   *table_info;
+}   t_philo;
 
 typedef struct s_table
 {
-    int             n_philo;      // 철학자 수
-    int             t_die;        // 죽기까지의 시간
-    int             t_eat;        // 식사 시간
-    int             t_sleep;      // 수면 시간
-    int             m_count;      // 각 철학자가 먹어야 하는 횟수 (optional)
-    pthread_mutex_t *forks;       // 포크를 나타내는 뮤텍스 배열
-} t_table;
+    int             num_philos;
+    int             time_to_die;
+    int             time_to_eat;
+    int             time_to_sleep;
+    int             must_eat;
+    bool             is_dead;
+    long long       start_time;
+    pthread_mutex_t *forks;
+    pthread_mutex_t print_mutex;
+    t_philo         *philos;
+}   t_table;
 
 
-/*parsing.c*/
-int	parse_arguments(int argc, char **argv, t_table *table);
-int					ft_simple_atoi(char *str);
-int					ft_vaild_argv(char **argv);
-/*printer.c*/
-void				input_error(void);
-/*init.c*/
-int	init_fork(t_table *table);
-void	closing_time(t_table *table, t_philo *philo);
-int init_philo(t_table *table, t_philo **philos);
-/*utils.c*/
-void	*philo_routine(void *arg);
-t_philo	*create_philo(int id);
-void	add_philo(t_philo **head, int id);
-/*routine.c*/
-void    *start_routine(void *data);
-void	create_threads(t_philo *philos, t_table *table);
+// /*parsing.c*/
+int	    check_is_num(char *str);
+int	    check_argv(int argc, char *argv[]);
+// /*clean_table.c*/
+// /*init_table.c*/
+void	destroy_forks(pthread_mutex_t *forks, int count);
+void	clean_philos(t_table *table);
+int	    init_forks(t_table *table);
+int	    init_philos(t_table *table);
+int     init_all(t_table *table, int argc, char **argv);
+// /*printer.c*/
+int	    ft_error(char *str);
+int	input_error(void);
+long long	timestamp(void);
+// /*utils.c*/
+int	ft_atoi(char *str);
+int	ft_strlen(char *str);
 
 #endif

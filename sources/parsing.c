@@ -6,54 +6,53 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2024/11/11 23:48:15 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:04:37 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_vaild_argv(char **argv)
+int	check_is_num(char *str)
 {
-	int	k;
 	int	i;
 
-	k = 1;
-	while (argv[k] != NULL)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		i = 0;
-		while (argv[k][i] != '\0')
-		{
-			if (argv[k][i] < '0' || argv[k][i] > '9')
-				return (-1);
+		if (str[0] == '-' || str[0] == '+')
 			i++;
-		}
-		if (i == 0)
-			return (-1);
-		k = k + 1;
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-int	parse_arguments(int argc, char **argv, t_table *table)
+int	check_argv(int argc, char *argv[])
 {
-	if (argc < 5 || argc > 6)
+	int	i;
+
+	i = 1;
+	if (argc != 5 && argc != 6)
+		return (input_error());
+	while (i != argc)
 	{
-		printf("Error: Wrong number of arguments.\n");
-		return (1);
+		if (check_is_num(argv[i]) != 0)
+			return (ft_error("only numbers\n"));
+		i++;
 	}
-	table->n_philo = ft_simple_atoi(argv[1]);
-	table->t_die = ft_simple_atoi(argv[2]);
-	table->t_eat = ft_simple_atoi(argv[3]);
-	table->t_sleep = ft_simple_atoi(argv[4]);
+	if (ft_atoi(argv[1]) < 1)
+		return (ft_error("number_of_philosophers > 1."));
+	if (ft_atoi(argv[2]) < 0)
+		return (ft_error("time_to_die > 0."));
+	if (ft_atoi(argv[3]) < 0)
+		return (ft_error("time_to_eat > 0."));
+	if (ft_atoi(argv[4]) < 0)
+		return (ft_error("time_to_sleep > 0."));
 	if (argc == 6)
-		table->m_count = ft_simple_atoi(argv[5]);
-	else
-		table->m_count = -1;//as a flag
-	if (table->n_philo <= 0 || table->t_die <= 0 || table->t_eat <= 0
-		|| table->t_sleep <= 0 || (argc == 6 && table->m_count <= 0))
 	{
-		printf("Error: Arguments must be positive integers.\n");
-		return (1);
+		if (ft_atoi(argv[5]) < 0)
+			return (ft_error("[number_of_times_each_philosopher_must_eat] > 0."));
 	}
 	return (0);
 }
