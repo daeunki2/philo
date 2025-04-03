@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/01 18:04:37 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:56:46 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_argv(int argc, char *argv[])
 	if (argc == 6)
 	{
 		if (ft_atoi(argv[5]) < 0)
-			return (ft_error("[number_of_times_each_philosopher_must_eat] > 0."));
+			return (ft_error("[philosopher_must_eat] > 0."));
 	}
 	return (0);
 }

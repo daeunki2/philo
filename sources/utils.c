@@ -6,11 +6,19 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:07:01 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/01 17:04:14 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:47:19 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+long long	get_current_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
 
 int	ft_atoi(char *str)
 {
