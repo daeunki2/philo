@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:07:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/03 17:23:06 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:09:08 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,20 @@ typedef struct s_table
 }	t_table;
 
 // /*clean_table.c*/
-// /*init_table.c*/
 void		destroy_forks(pthread_mutex_t *forks, int count);
 void		clean_philos(t_table *table);
+void		clean_all(t_table *table);
+// /*init_table.c*/
 int			init_forks(t_table *table);
 int			init_philos(t_table *table);
+int			init_mutex(t_table *table);
 int			init_all(t_table *table, int argc, char **argv);
+// /*main.c */
+void	start_simulation(t_table *table);
 // /*monitor_rutine.c*/
+bool		all_philos_done(t_table *table);
+bool		is_someone_dead(t_table *table);
+void		*monitor_routine(void *arg);
 // /*parsing.c*/
 int			check_is_num(char *str);
 int			check_argv(int argc, char *argv[]);
