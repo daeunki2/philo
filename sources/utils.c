@@ -6,18 +6,35 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:07:01 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/03 16:47:19 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:04:52 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-long long	get_current_time(void)
+long long	ft_get_time(void)
 {
-	struct timeval	tv;
+	long long		sec;
+	struct timeval	time;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	gettimeofday(&time, NULL);
+	sec = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (sec);
+}
+
+void	ft_wait(t_table *param, int time)
+{
+	long long	now_time;
+	long long	start_time;
+
+	start_time = ft_get_time();
+	while (param->someone_dead == false)
+	{
+		now_time = ft_get_time();
+		if (now_time - start_time >= time)
+			break ;
+		usleep(300);
+	}
 }
 
 int	ft_atoi(char *str)

@@ -6,22 +6,28 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:38:22 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/07 16:44:00 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:03:13 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	print_action(t_philo *philo, const char *msg)
+void	ft_print(t_table *table, t_philo *philo, char *str)
 {
-	t_table		*table;
-	long long	time_stamp;
+	long long	time;
 
-	table = philo->table_info;
-	time_stamp = get_current_time() - table->start_time;
-	pthread_mutex_lock(&table->print_mutex);
-	printf("[%lld] %d %s\n", time_stamp, philo->id, msg);
-	pthread_mutex_unlock(&table->print_mutex);
+	if (table->someone_dead == true)
+		time = 0;
+	else
+	{
+		pthread_mutex_lock(&table->print);
+		if (table->someone_dead == false)
+		{
+			time = ft_get_time() - table->start_time;
+			printf("%lld	%d	%s\n", time, philo->id, str);
+		}
+		pthread_mutex_unlock(&table->print);
+	}
 }
 
 int	ft_error(char *str)
@@ -30,7 +36,7 @@ int	ft_error(char *str)
 	return (-1);
 }
 
-int free_msg(t_table *table, char *msg)
+int	free_msg(t_table *table, char *msg)
 {
 	free(table->forks);
 	ft_error(msg);

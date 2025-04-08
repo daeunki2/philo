@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:32:17 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/07 16:59:56 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:50:06 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,15 @@
 int	init_forks(t_table *table)
 {
 	int	index;
-	int	safety;
 
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
+	table->forks_mutex = malloc(sizeof(pthread_mutex_t) * table->num_philos);
 	if (table->forks == NULL)
-		return (-1);
+		return (ft_error("pthread_t forks malloc fail"));
 	index = 0;
 	while (index < table->num_philos)
 	{
-		safety = pthread_mutex_init(&table->forks[index], NULL);
-		if (safety)
-		{
-			destroy_forks(table->forks, index);
-			return (ft_error("fail to creat mutex\n"));
-		}
+		if (pthread_mutex_init(&table->forks_mutex[index], NULL))
+			return (ft_error("fail to creat forks mutex"));
 		index++;
 	}
 	return (0);
@@ -37,11 +32,10 @@ int	init_forks(t_table *table)
 int	init_philos(t_table *table)
 {
 	int	index;
-	int	safty;
 
 	table->philos = malloc(sizeof(t_philo) * table->num_philos);
 	if (table->philos == NULL)
-		return (-1);
+		return (ft_error("t_philo *phios malloc fail"));
 	index = 0;
 	while (index < table->num_philos)
 	{
@@ -51,12 +45,7 @@ int	init_philos(t_table *table)
 		table->philos[index].last_meal = table->start_time;
 		table->philos[index].meal_count = 0;
 		table->philos[index].table_info = table;
-		safty = pthread_mutex_init(&table->philos[index].last_meal_mutex, NULL);
-		if (safty != 0)
-		{
-			clean_philos(table);
-			return (ft_error("fail to creat mutex\n"));
-		}
+		table->philos[index].is_dead = false;
 		index++;
 	}
 	return (0);
@@ -64,20 +53,18 @@ int	init_philos(t_table *table)
 
 int	init_mutex(t_table *table)
 {
-	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
+	if (pthread_mutex_init(&table->print, NULL) != 0)
 		return (ft_error("fail to init print mutex"));
-
-	if (pthread_mutex_init(&table->is_dead_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&table->print_mutex);
-		return (ft_error("fail to init is_dead mutex"));
-	}
+	if (pthread_mutex_init(&table->eat, NULL) != 0)
+		return (ft_error("fail to init eat mutex"));
+	if (pthread_mutex_init(&table->fork_condition, NULL) != 0)
+		return (ft_error("fail to init fork_condition mutex"));
 	return (0);
 }
 
 int	init_all(t_table *table, int argc, char **argv)
 {
-	table->is_dead = 0;
+	table->someone_dead = false;
 	table->num_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
@@ -85,16 +72,15 @@ int	init_all(t_table *table, int argc, char **argv)
 	table->must_eat = -1;
 	if (argc == 6)
 		table->must_eat = ft_atoi(argv[5]);
+	table->someone_dead = false;
+	table->forks = malloc (sizeof(int) * table->num_philos);
+	if (table->forks == NULL)
+		return (-1);
 	if (init_mutex(table) != 0)
-		return(-1);
+		return (-1);
 	if (init_forks(table) != 0)
 		return (-1);
 	if (init_philos(table) != 0)
-	{
-		destroy_forks(table->forks, table->num_philos);
-		pthread_mutex_destroy(&table->print_mutex);
-		pthread_mutex_destroy(&table->is_dead_mutex);
 		return (-1);
-	}
 	return (0);
 }

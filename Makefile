@@ -6,7 +6,7 @@
 #    By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/30 15:12:53 by daeunki2          #+#    #+#              #
-#    Updated: 2025/04/03 11:35:38 by daeunki2         ###   ########.fr        #
+#    Updated: 2025/04/08 14:18:37 by daeunki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,25 +35,23 @@ RESET = \033[0m
 
 # Principals variable needed
 NAME = philo
+
 CC = gcc
+CFLAGS = -Wextra -Werror -Wall
 
 # Adding builtins directory path
-BUILTINS_DIRECTORY = builtins/
 SRCS_DIRECTORY = ./sources/
 OBJ_DIR = ./obj/
 
 SRCS = 	$(SRCS_DIRECTORY)main.c \
-		$(SRCS_DIRECTORY)clean_table.c \
+		$(SRCS_DIRECTORY)check_clean.c \
 		$(SRCS_DIRECTORY)init_table.c \
 		$(SRCS_DIRECTORY)parsing.c \
 		$(SRCS_DIRECTORY)printer.c \
 		$(SRCS_DIRECTORY)utils.c \
 		$(SRCS_DIRECTORY)philo_routin.c \
-#		$(SRCS_DIRECTORY)
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
-# CFLAGS = -Wall -Wextra -Werror -lpthread -pedantic
-# CFLAGS = -lpthread -pedantic
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
@@ -61,7 +59,7 @@ $(OBJ_DIR)%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)  $(LIBS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lpthread
 	@echo "$(BOLD_CYAN)               philo is ready!$(RESET)"
 	@echo "$(BOLD_GREEN)*-----------------------------------------*$(RESET)"
 	@echo "$(BOLD_GREEN)|For usage : $(BOLD_RED)./philo num num num num (num)$(BOLD_GREEN)| $(RESET) $(RESET) $(RESET)"
@@ -86,6 +84,6 @@ norm:
 	|| { echo "$(RED)Norminette failed :( $(RESET)"; exit 1; }
 	@echo "$(BLUE)Checking norminette for Include...$(RESET)"
 	@norminette ./include/philo.h || { echo "$(BOLD_RED)Norminette failed for header$(RESET)"; exit 1; }
-	@echo "$(BOLD_GREEN)Norm is all good!$(RESET)"
+	@echo "$(BOLD_GREEN)No norm error :) !$(RESET)"
 
 .PHONY: all clean fclean re norm
