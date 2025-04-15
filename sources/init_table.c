@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:32:17 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 14:20:17 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:37:36 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ int	init_philos(t_table *table)
 		table->philos[index].is_dead = false;
 		index++;
 	}
+	index = 0;
+	while (index < table->num_philos)
+	{
+		if (pthread_mutex_init(&table->philos[index].meal_num, NULL))
+			return (ft_error("fail to creat forks mutex"));
+		index++;
+	}
 	return (0);
 }
 
@@ -59,6 +66,8 @@ int	init_mutex(t_table *table)
 		return (ft_error("fail to init eat mutex"));
 	if (pthread_mutex_init(&table->fork_condition, NULL) != 0)
 		return (ft_error("fail to init fork_condition mutex"));
+	if (pthread_mutex_init(&table->death, NULL) != 0)
+		return (ft_error("fail to init deaeth mutex"));
 	return (0);
 }
 

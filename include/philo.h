@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:07:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/08 16:51:03 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:19:04 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	int				right_fork;
 	long long		last_meal;
 	int				meal_count;
+	pthread_mutex_t	meal_num;
 	bool			is_dead;
 	struct s_table	*table_info;
 }	t_philo;
@@ -45,6 +46,7 @@ typedef struct s_table
 	pthread_mutex_t	fork_condition;
 	pthread_mutex_t	print;
 	pthread_mutex_t	eat;
+	pthread_mutex_t	death;
 	pthread_mutex_t	*forks_mutex;
 	t_philo			*philos;
 }	t_table;
@@ -64,6 +66,8 @@ int			start_simulation(t_table *table);
 // /*parsing.c*/
 int			check_is_num(char *str);
 int			check_argv(int argc, char *argv[]);
+int			ft_atoi(char *str);
+int			ft_strlen(char *str);
 // /*philo_rutine.c*/
 void		*do_philo(void *arg);
 void		do_eat(t_philo *philo, t_table *table);
@@ -75,9 +79,10 @@ int			ft_error(char *str);
 int			input_error(void);
 void		ft_print(t_table *table, t_philo *philo, char *str);
 // /*utils.c*/
-int			ft_atoi(char *str);
-int			ft_strlen(char *str);
 long long	ft_get_time(void);
 void		ft_wait(t_table *param, int time);
+bool		some_death(t_table *table);
+int			get_first_fork(t_philo *philo);
+int			get_second_fork(t_philo *philo);
 
 #endif

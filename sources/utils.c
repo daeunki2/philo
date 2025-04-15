@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:07:01 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 14:13:05 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:07:12 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_wait(t_table *param, int time)
 	long long	start_time;
 
 	start_time = ft_get_time();
-	while (param->someone_dead == false)
+	while (some_death(param) == false)
 	{
 		now_time = ft_get_time();
 		if (now_time - start_time >= time)
@@ -37,35 +37,28 @@ void	ft_wait(t_table *param, int time)
 	}
 }
 
-int	ft_atoi(char *str)
+bool	some_death(t_table *table)
 {
-	int	result;
-	int	i;
-
-	result = 0;
-	i = 0;
-	if (str[i] == '+')
-		i++;
-	while (str[i] != '\0')
+	pthread_mutex_lock(&table->death);
+	if (table->someone_dead == true)
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (-1);
-		result = result * 10 + (str[i] - '0');
-		i++;
+		pthread_mutex_unlock(&table->death);
+		return (true);
 	}
-	if (result > 2147483647)
-		return (-1);
-	return (result);
+	pthread_mutex_unlock(&table->death);
+	return (false);
 }
 
-int	ft_strlen(char *str)
+int	get_first_fork(t_philo *philo)
 {
-	int	i;
+	if (philo->left_fork < philo->right_fork)
+		return (philo->left_fork);
+	return (philo->right_fork);
+}
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (0);
+int	get_second_fork(t_philo *philo)
+{
+	if (philo->left_fork < philo->right_fork)
+		return (philo->right_fork);
+	return (philo->left_fork);
 }

@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:38:22 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/08 16:03:13 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:11:30 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	ft_print(t_table *table, t_philo *philo, char *str)
 {
 	long long	time;
 
-	if (table->someone_dead == true)
+	if (some_death(table) == true)
 		time = 0;
 	else
 	{
 		pthread_mutex_lock(&table->print);
-		if (table->someone_dead == false)
+		if (some_death(table) == false)
 		{
 			time = ft_get_time() - table->start_time;
 			printf("%lld	%d	%s\n", time, philo->id, str);

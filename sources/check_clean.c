@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 17:21:03 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/08 16:50:45 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:18:24 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,25 @@ int	start_simulation(t_table *table)
 
 void	ft_check_die(t_table *table)
 {
-	while (table->someone_dead == false)
+	while (some_death(table) == false)
 	{
 		pthread_mutex_lock(&(table->eat));
 		if (time_check(table) != 0)
+		{
+			pthread_mutex_unlock(&(table->eat));
 			break ;
+		}
 		if (table->must_eat != -1)
+		{
 			if (check_eat_num(table))
+			{
+				pthread_mutex_unlock(&(table->eat));
 				break ;
+			}
+		}
 		pthread_mutex_unlock (&(table->eat));
 		usleep(100);
 	}
-	pthread_mutex_unlock(&(table->eat));
 	ft_clean_all(table);
 }
 
@@ -62,7 +69,9 @@ int	time_check(t_table *table)
 		{
 			pthread_mutex_lock(&table->print);
 			table->philos[i].is_dead = true;
+			pthread_mutex_lock(&table->death);
 			table->someone_dead = true;
+			pthread_mutex_unlock(&table->death);
 			printf("%lld	%d	is died\n", time, table->philos[i].id);
 			pthread_mutex_unlock(&table->print);
 			return (-1);
@@ -82,15 +91,17 @@ int	check_eat_num(t_table *table)
 	check = 0;
 	while (i < table->num_philos)
 	{
-		if (table->philos[i].meal_count >= table->must_eat \
-			&& table->must_eat != -1)
-			check++;
-		i++;
+		pthread_mutex_lock(&table->philos[i].meal_num);
+		check += (table->must_eat != -1 && table->philos[i].meal_count \
+			>= table->must_eat);
+		pthread_mutex_unlock(&table->philos[i++].meal_num);
 	}
 	if (check == table->num_philos)
 	{
 		pthread_mutex_lock(&table->print);
+		pthread_mutex_lock(&table->death);
 		table->someone_dead = true;
+		pthread_mutex_unlock(&table->death);
 		time = ft_get_time() - table->start_time;
 		printf("%lldms	all philo eat %d time\n", time, table->must_eat);
 		pthread_mutex_unlock(&table->print);
@@ -106,14 +117,17 @@ void	ft_clean_all(t_table *table)
 	i = 0;
 	while (i < table->num_philos)
 	{
-		pthread_join(table->philos[i].thread, NULL);
-		i++;
+		pthread_join(table->philos[i++].thread, NULL);
 	}
 	i = 0;
 	while (i < table->num_philos)
 	{
-		pthread_mutex_destroy(&(table->forks_mutex[i]));
-		i++;
+		pthread_mutex_destroy(&(table->forks_mutex[i++]));
+	}
+	i = 0;
+	while (i < table->num_philos)
+	{
+		pthread_mutex_destroy(&(table->philos[i++].meal_num));
 	}
 	free(table->forks_mutex);
 	free(table->forks);
@@ -121,4 +135,5 @@ void	ft_clean_all(t_table *table)
 	pthread_mutex_destroy(&table->fork_condition);
 	pthread_mutex_destroy(&table->print);
 	pthread_mutex_destroy(&table->eat);
+	pthread_mutex_destroy(&table->death);
 }

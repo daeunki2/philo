@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 14:12:14 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:08:08 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,39 @@ int	check_argv(int argc, char *argv[])
 	{
 		if (ft_atoi(argv[5]) < 0)
 			return (ft_error("0 < [philosopher_must_eat] <= intmax."));
+	}
+	return (0);
+}
+
+int	ft_atoi(char *str)
+{
+	int	result;
+	int	i;
+
+	result = 0;
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	if (result > 2147483647)
+		return (-1);
+	return (result);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
 	}
 	return (0);
 }
