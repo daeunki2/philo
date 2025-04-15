@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/03 12:56:46 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:12:14 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ int	check_argv(int argc, char *argv[])
 	while (i != argc)
 	{
 		if (check_is_num(argv[i]) != 0)
-			return (ft_error("only numbers\n"));
+			return (ft_error("only numbers"));
 		i++;
 	}
 	if (ft_atoi(argv[1]) < 1)
-		return (ft_error("number_of_philosophers > 1."));
+		return (ft_error("1 <= number_of_philosophers <= intmax."));
 	if (ft_atoi(argv[2]) < 0)
-		return (ft_error("time_to_die > 0."));
+		return (ft_error("0 < time_to_die <= intmax."));
 	if (ft_atoi(argv[3]) < 0)
-		return (ft_error("time_to_eat > 0."));
+		return (ft_error("0 < time_to_eat <= intmax."));
 	if (ft_atoi(argv[4]) < 0)
-		return (ft_error("time_to_sleep > 0."));
+		return (ft_error("0 < time_to_sleep <= intmax."));
 	if (argc == 6)
 	{
 		if (ft_atoi(argv[5]) < 0)
-			return (ft_error("[philosopher_must_eat] > 0."));
+			return (ft_error("0 < [philosopher_must_eat] <= intmax."));
 	}
 	return (0);
 }

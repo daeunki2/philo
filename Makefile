@@ -6,7 +6,7 @@
 #    By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/30 15:12:53 by daeunki2          #+#    #+#              #
-#    Updated: 2025/04/08 14:18:37 by daeunki2         ###   ########.fr        #
+#    Updated: 2025/04/15 14:21:03 by daeunki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,11 @@ RESET = \033[0m
 # Principals variable needed
 NAME = philo
 
-CC = gcc
-CFLAGS = -Wextra -Werror -Wall
+CC = cc
+CFLAGS = -Wextra -Werror -Wall -g3 -fPIC -fsanitize=thread
+# VFLAGS = -g3 -fPIC SANITIZE = -g3 -fPIC -fsanitize=thread 
+# VALG = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1
+# HELG = valgrind --tool=helgrind --history-level=full --track-lockorders=yes --show-below-main=yes --free-is-write=yes
 
 # Adding builtins directory path
 SRCS_DIRECTORY = ./sources/

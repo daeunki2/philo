@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:32:17 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/08 16:50:06 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:20:17 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	init_philos(t_table *table)
 		table->philos[index].id = index + 1;
 		table->philos[index].left_fork = index;
 		table->philos[index].right_fork = (index + 1) % table->num_philos;
-		table->philos[index].last_meal = table->start_time;
+		table->philos[index].last_meal = 0;
 		table->philos[index].meal_count = 0;
 		table->philos[index].table_info = table;
 		table->philos[index].is_dead = false;
@@ -74,6 +74,7 @@ int	init_all(t_table *table, int argc, char **argv)
 		table->must_eat = ft_atoi(argv[5]);
 	table->someone_dead = false;
 	table->forks = malloc (sizeof(int) * table->num_philos);
+	memset(table->forks, 0, sizeof(int) * table->num_philos);
 	if (table->forks == NULL)
 		return (-1);
 	if (init_mutex(table) != 0)

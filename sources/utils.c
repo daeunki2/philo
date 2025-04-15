@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:07:01 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/08 16:04:52 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:13:05 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	ft_atoi(char *str)
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
+	if (result > 2147483647)
+		return (-1);
 	return (result);
 }
 
