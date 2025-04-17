@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 17:21:03 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 16:18:24 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/17 09:59:41 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_check_die(t_table *table)
 			}
 		}
 		pthread_mutex_unlock (&(table->eat));
-		usleep(100);
+		usleep(200);
 	}
 	ft_clean_all(table);
 }

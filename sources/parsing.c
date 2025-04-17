@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:53:30 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 16:08:08 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/17 09:56:33 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_argv(int argc, char *argv[])
 	while (i != argc)
 	{
 		if (check_is_num(argv[i]) != 0)
-			return (ft_error("only numbers"));
+			return (ft_error("only numbers or with only '1'sign."));
 		i++;
 	}
 	if (ft_atoi(argv[1]) < 1)
@@ -59,8 +59,8 @@ int	check_argv(int argc, char *argv[])
 
 int	ft_atoi(char *str)
 {
-	int	result;
-	int	i;
+	long long	result;
+	int			i;
 
 	result = 0;
 	i = 0;
@@ -75,7 +75,7 @@ int	ft_atoi(char *str)
 	}
 	if (result > 2147483647)
 		return (-1);
-	return (result);
+	return ((int)result);
 }
 
 int	ft_strlen(char *str)

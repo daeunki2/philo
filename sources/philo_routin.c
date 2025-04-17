@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:40:42 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/15 16:10:00 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/17 10:00:03 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*do_philo(void *arg)
 			usleep(100);
 		do_sleep(philo, table);
 		do_think(philo, table);
-		usleep(500);
+		usleep(200);
 	}
 	return (0);
 }
