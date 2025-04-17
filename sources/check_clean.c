@@ -6,7 +6,7 @@
 /*   By: daeunki2 <daeunki2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 17:21:03 by daeunki2          #+#    #+#             */
-/*   Updated: 2025/04/17 09:59:41 by daeunki2         ###   ########.fr       */
+/*   Updated: 2025/04/17 12:56:35 by daeunki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	time_check(t_table *table)
 
 int	check_eat_num(t_table *table)
 {
-	long long	time;
 	int			i;
 	int			check;
 
@@ -98,13 +97,9 @@ int	check_eat_num(t_table *table)
 	}
 	if (check == table->num_philos)
 	{
-		pthread_mutex_lock(&table->print);
 		pthread_mutex_lock(&table->death);
 		table->someone_dead = true;
 		pthread_mutex_unlock(&table->death);
-		time = ft_get_time() - table->start_time;
-		printf("%lldms	all philo eat %d time\n", time, table->must_eat);
-		pthread_mutex_unlock(&table->print);
 		return (1);
 	}
 	return (0);
@@ -137,3 +132,34 @@ void	ft_clean_all(t_table *table)
 	pthread_mutex_destroy(&table->eat);
 	pthread_mutex_destroy(&table->death);
 }
+
+/*
+int	check_eat_num(t_table *table)
+{
+	long long	time;
+	int			i;
+	int			check;
+
+	i = 0;
+	check = 0;
+	while (i < table->num_philos)
+	{
+		pthread_mutex_lock(&table->philos[i].meal_num);
+		check += (table->must_eat != -1 && table->philos[i].meal_count \
+			>= table->must_eat);
+		pthread_mutex_unlock(&table->philos[i++].meal_num);
+	}
+	if (check == table->num_philos)
+	{
+		pthread_mutex_lock(&table->print);
+		pthread_mutex_lock(&table->death);
+		table->someone_dead = true;
+		pthread_mutex_unlock(&table->death);
+		time = ft_get_time() - table->start_time;
+		printf("%lldms	all philo eat %d time\n", time, table->must_eat);
+		pthread_mutex_unlock(&table->print);
+		return (1);
+	}
+	return (0);
+}
+*/
